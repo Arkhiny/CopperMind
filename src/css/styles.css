@@ -158,7 +158,3 @@ form.create-note button {
   width: 130px; /* Fixed width */
 }
 
-/* Button hover effect */
-.button:hover {
-  background-color: #0d8bf2; /* Darker blue on hover */
-}
