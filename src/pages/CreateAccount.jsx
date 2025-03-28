@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios"; // Import Axios for HTTP requests
 import styles from "../css/login.module.css";
 
 export default function CreateAccountPage() {
@@ -10,6 +11,8 @@ export default function CreateAccountPage() {
   const [password, setPassword] = useState("");
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [loading, setLoading] = useState(false); // State for form submission
+  const navigate = useNavigate(); // React Router hook for navigation
 
   const calculatePasswordStrength = (password) => {
     let strength = 0;
@@ -47,9 +50,25 @@ export default function CreateAccountPage() {
     setShowPassword((prev) => !prev); // Toggle password visibility
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Name:", name, "Email:", email, "Password:", password);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent page reload
+    setLoading(true); // Start loading state
+
+    try {
+      await axios.post("http://localhost:5000/api/auth/register", {
+        name,
+        email,
+        password,
+      });
+
+      setLoading(false); // Stop loading state
+      navigate("/note"); // Redirect to login page
+    } catch (error) {
+      console.log("Sending data:", { name, email, password });
+      console.error("Registration Error:", error.response?.data || error.message);
+      alert("Registration failed! Please try again.");
+      setLoading(false); // Stop loading state
+    }
   };
 
   return (
@@ -99,8 +118,8 @@ export default function CreateAccountPage() {
               }}
             ></div>
           </div>
-          <button type="submit" className={styles.button}>
-            Entrar
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? "Processing..." : "Criar"}
           </button>
         </form>
         <Link to="/">Voltar ao início</Link>
