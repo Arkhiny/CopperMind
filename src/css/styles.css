@@ -158,3 +158,23 @@ form.create-note button {
   width: 130px; /* Fixed width */
 }
 
+/* Mobile styles Homepage */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 1rem;  /* Increase font size for mobile */
+      margin-bottom: 30px;  /* Space between title and buttons */
+  }
+
+  .button-container {
+      flex-direction: column;  /* Stack buttons vertically on mobile */
+      align-items: center;  /* Center buttons on mobile */
+      gap: 15px;
+  }
+
+  .button {
+      font-size: 1.5rem;  /* Bigger font size for mobile */
+      padding: 15px 30px;  /* Increase button size */
+      width: 80%;  /* Make buttons wider */
+      max-width: 300px;  /* Prevent buttons from becoming too large */
+  }
+}

@@ -17,14 +17,25 @@ export default function LoginPage() {
     setLoading(true); // Start loading state
 
     try {
-        await axios.post("http://localhost:5000/api/auth/login", {
+      // Sending login request to backend
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password,
       });
 
+      // Assuming the response contains a token (adjust based on your API)
+      const { token } = response.data;  // Example: { token: "your-jwt-token" }
 
-      setLoading(false); // Stop loading state
-      navigate("/note"); // Redirect to /note
+      // Check if the token is available
+      if (token) {
+        // Store the token in localStorage (or sessionStorage)
+        localStorage.setItem("authToken", token);
+
+        setLoading(false); // Stop loading state
+        navigate("/note"); // Redirect to /note
+      } else {
+        throw new Error("Token not found in response.");
+      }
     } catch (error) {
       console.error("Login Error:", error.response?.data || error.message);
       alert("Login failed! Please check your credentials.");

@@ -60,7 +60,7 @@ export default function CreateAccountPage() {
         email,
         password,
       });
-
+      console.log("Sending data:", { name, email, password });
       setLoading(false); // Stop loading state
       navigate("/note"); // Redirect to login page
     } catch (error) {
