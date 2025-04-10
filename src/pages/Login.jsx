@@ -22,19 +22,23 @@ export default function LoginPage() {
         email,
         password,
       });
+      
+      // Assuming the response contains both a token and a user object:
+      const { token, user } = response.data; // Example: { token: "your-jwt-token", user: { id: 1, name: 'Test User', email: 'test@example.com' } }
 
-      // Assuming the response contains a token (adjust based on your API)
-      const { token } = response.data;  // Example: { token: "your-jwt-token" }
-
-      // Check if the token is available
-      if (token) {
-        // Store the token in localStorage (or sessionStorage)
+      // Check if token and user are available
+      if (token && user) {
+        // Store the token in localStorage (or sessionStorage) for later authorized requests
         localStorage.setItem("authToken", token);
+        // Store the active user so that ProtectedRoute and NotePage can access user-specific data
+        localStorage.setItem("activeUser", JSON.stringify(user));
 
         setLoading(false); // Stop loading state
-        navigate("/note"); // Redirect to /note
+
+        // Redirect to /Note after successful login
+        navigate("/Note");
       } else {
-        throw new Error("Token not found in response.");
+        throw new Error("Token or user not found in response.");
       }
     } catch (error) {
       console.error("Login Error:", error.response?.data || error.message);

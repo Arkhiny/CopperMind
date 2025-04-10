@@ -1,41 +1,77 @@
+// CreateArea.jsx
 import React, { useState } from "react";
+import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 
-function CreateArea(props) {
+function CreateArea({ onAdd, onUpdateNote, activeUser }) {
   const [isExpanded, setExpanded] = useState(false);
-
   const [note, setNote] = useState({
     title: "",
     content: "",
   });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     const { name, value } = event.target;
+    setNote((prevNote) => ({
+      ...prevNote,
+      [name]: value,
+    }));
+  };
 
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
-  }
-
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: "",
-    });
+  const submitNote = (event) => {
     event.preventDefault();
-  }
 
-  function expand() {
+    if (!activeUser || !activeUser.id) {
+      console.error("No active user found. Please log in.");
+      return;
+    }
+
+    // Create a temporary note object with a temporary ID (e.g. using Date.now())
+    const tempId = Date.now();
+    const optimisticNote = {
+      id: tempId,
+      title: note.title,
+      content: note.content,
+    };
+
+    // Update the UI immediately by adding the note locally
+    onAdd(optimisticNote);
+    // Clear the form fields
+    setNote({ title: "", content: "" });
+
+    // Prepare note data to send to backend.
+    // IMPORTANT: Use "userId" (camelCase) so that the backend receives all required fields.
+    const noteData = {
+      userId: activeUser.id,
+      title: optimisticNote.title,
+      content: optimisticNote.content,
+    };
+
+    console.log("Active user:", activeUser);
+    console.log("Note being sent:", noteData);
+
+    axios
+      .post("http://localhost:5000/api/auth/notes", noteData)
+      .then((response) => {
+        // Expect the backend to return the saved note, e.g., 
+        // { note: { id: 123, user_id: 14, title: 'Test Note', content: '...', created_at: '...' } }
+        const savedNote = response.data.note;
+        // Replace the optimistic note in the UI with the note returned from the backend
+        onUpdateNote(tempId, savedNote);
+      })
+      .catch((error) => {
+        console.error("Error saving note:", error.response?.data || error.message);
+        // Optionally remove the optimistic note from the UI or mark it as failed.
+      });
+  };
+
+  const expand = () => {
     setExpanded(true);
-  }
+  };
 
   return (
     <div>
-      <form className="create-note">
+      <form className="create-note" onSubmit={submitNote}>
         {isExpanded && (
           <input
             name="title"
@@ -44,7 +80,6 @@ function CreateArea(props) {
             placeholder="Title"
           />
         )}
-
         <textarea
           name="content"
           onClick={expand}
@@ -54,7 +89,7 @@ function CreateArea(props) {
           rows={isExpanded ? 3 : 1}
         />
         {isExpanded && (
-          <button onClick={submitNote} className="add-button">
+          <button type="submit" className="add-button">
             <FaPlus />
           </button>
         )}
@@ -64,4 +99,3 @@ function CreateArea(props) {
 }
 
 export default CreateArea;
-
