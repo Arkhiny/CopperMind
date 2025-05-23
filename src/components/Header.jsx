@@ -3,7 +3,7 @@ import { FaLightbulb } from "react-icons/fa";
 
 function Header() {
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <h1>
         <FaLightbulb /> 
         CopperMind

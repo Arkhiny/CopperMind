@@ -1,0 +1,45 @@
+=====================================
+          VITEST RESULTS             
+=====================================
+
+**Version:** v3.1.4  
+**Working Directory:** D:/Programming/CopperMind/FrontEnd
+
+-------------------------------------
+          Test Files Summary         
+-------------------------------------
+1 test file passed:  
+  - src/Test/LoginPage.test.jsx
+
+-------------------------------------
+          Tests Summary            
+-------------------------------------
+LoginPage Component - Input and Action Tests:
+  ✓ should accept valid email and password inputs  
+    (Input Example: "test@example.com", "password123")  
+    Duration: 72 ms
+
+  ✓ should toggle password visibility when clicking the eye icon  
+    Duration: 13 ms
+
+  ✓ should successfully log in with acceptable credentials  
+    (Storing token and navigating to /Note)  
+    Duration: 139 ms
+
+  ✓ should reject invalid login credentials  
+    (Example: "wrong@example.com", "wrongpassword" -> shows alert)  
+    Duration: 30 ms
+
+-------------------------------------
+           Timing Details           
+-------------------------------------
+- **Start at:** 13:38:03  
+- **Total Duration:** 3.54 s  
+  • Transform:    164 ms  
+  • Setup:        301 ms  
+  • Collect:      647 ms  
+  • Tests:        256 ms  
+  • Environment:  1.66 s  
+  • Prepare:      320 ms
+
+=====================================

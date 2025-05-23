@@ -1,0 +1,33 @@
+=====================================
+         VITEST RESULTS            
+=====================================
+
+**Runner Version:** v3.1.4  
+**Working Directory:** D:/Programming/CopperMind/FrontEnd
+
+-------------------------------------
+         Test Files               
+-------------------------------------
+1 Test File Passed:
+  • src/Test/NotePage.test.jsx
+
+-------------------------------------
+           Tests                  
+-------------------------------------
+NotePage Component:
+  ✓ should fetch and render notes for the active user ........ 62ms  
+  ✓ should delete a note when the delete button is clicked ...... 122ms
+
+-------------------------------------
+       Timing Information         
+-------------------------------------
+Start at       : 15:03:59  
+Total Duration : 3.45s  
+  - Transform  : 119ms  
+  - Setup      : 330ms  
+  - Collect    : 620ms  
+  - Tests      : 187ms  
+  - Environment: 1.71s  
+  - Prepare    : 309ms
+
+=====================================

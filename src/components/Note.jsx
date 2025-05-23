@@ -1,3 +1,4 @@
+// Note.js
 import React from "react";
 import { FaTrash } from "react-icons/fa";
 import "../css/styles.css";
@@ -12,7 +13,12 @@ class Note extends React.Component {
       <div className="note">
         <h1 className="title">{this.props.title}</h1>
         <p className="content">{this.props.content}</p>
-        <button className="deleteButton" onClick={this.handleClick}>
+        {/* Added aria-label to ensure accessibility */}
+        <button 
+          className="deleteButton" 
+          onClick={this.handleClick} 
+          aria-label="Delete"
+        >
           <FaTrash />
         </button>
       </div>

@@ -1,0 +1,54 @@
+==============================
+    🧪 VITEST RESULTS          
+==============================
+
+**Runner Version:** v3.1.4  
+**Working Directory:** D:/Programming/CopperMind/FrontEnd
+
+------------------------------
+       📁 Test Files        
+------------------------------
+1 Test File Passed:
+  - src/Test/CreateAccountPage.test.jsx
+
+------------------------------
+         ✅ Tests           
+------------------------------
+**CreateAccountPage Component:**
+
+  ✓ "should update name, email, and password inputs correctly" .... 86ms  
+  ✓ "should toggle password visibility when clicking the eye icon" ... 12ms  
+  ✓ "should submit registration data and navigate to '/note' on successful registration" ... 120ms  
+  ✓ "should display an alert and not navigate on registration failure" .... 31ms
+
+------------------------------
+      🖥️ Console Output       
+------------------------------
+
+[Successful Registration]  
+Sending data: {  
+  name: 'John Doe',  
+  email: 'john@example.com',  
+  password: 'StrongPass1!'  
+}
+
+[Registration Failure]  
+Sending data: {  
+  name: 'John Doe',  
+  email: 'john@example.com',  
+  password: 'InvalidPass'  
+}
+
+------------------------------
+         ⏱️ Timing            
+------------------------------
+Start at:       14:10:42  
+Total Duration: 3.53s  
+  - Transform:    167ms  
+  - Setup:        353ms  
+  - Collect:      677ms  
+  - Tests:        251ms  
+  - Environment:  1.63s  
+  - Prepare:      313ms
+
+==============================
